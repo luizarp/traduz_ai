@@ -1,13 +1,7 @@
 <template>
-  <v-app-bar :elevation="2">
-    <template #prepend>
-      <v-app-bar-nav-icon />
-    </template>
-
-    <v-app-bar-title>Application Bar</v-app-bar-title>
+  <v-app-bar :elevation="0" color="background">
+    <v-app-bar-title class="d-flex justify-center">
+      <v-img :width="150" cover src="@/assets/logo.svg" />
+    </v-app-bar-title>
   </v-app-bar>
 </template>
-
-<script>
-export default {};
-</script>
