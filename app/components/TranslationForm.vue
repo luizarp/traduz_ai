@@ -1,19 +1,51 @@
 <template>
   <v-form @submit.prevent>
-    <v-text-field
-      v-model="userInput"
-      :rules="rules"
-      label="To translate"
-      variant="underlined"
-    />
+    <v-text-field v-model="userInput" label="Text" variant="underlined" />
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-select
+          label="From"
+          :items="[
+            'California',
+            'Colorado',
+            'Florida',
+            'Georgia',
+            'Texas',
+            'Wyoming',
+          ]"
+          variant="underlined"
+        />
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-select
+          label="To"
+          :items="[
+            'California',
+            'Colorado',
+            'Florida',
+            'Georgia',
+            'Texas',
+            'Wyoming',
+          ]"
+          variant="underlined"
+        />
+      </v-col>
+    </v-row>
     <v-btn
       class="btn-translate mt-2"
-      type="submit"
       block
       variant="tonal"
       :disabled="loading"
       @click="fetchChatCompletion"
       >{{ loading ? "Carregando..." : "Enviar" }}</v-btn
+    >
+    <v-btn
+      v-if="completionMessage"
+      class="mt-2"
+      block
+      variant="tonal"
+      @click="completionMessage = ''"
+      >Reset</v-btn
     >
     {{ completionMessage }}
   </v-form>
@@ -23,22 +55,24 @@
 import { ref } from "vue";
 import { getGroqChatCompletion } from "@/services/groqService";
 
-const userInput = ref(""); // Texto digitado pelo usuário
-const completionMessage = ref(""); // Resposta da API
-const loading = ref(false); // Indica se a resposta está sendo carregada
+const userInput = ref("");
+const completionMessage = ref("");
+const loading = ref(false);
 
 async function fetchChatCompletion() {
   if (!userInput.value) {
     completionMessage.value = "Por favor, digite um texto.";
     return;
   }
-
+  const test =
+    "traduza para o inglês a frase a seguir: " +
+    userInput.value +
+    "retorne somente a tradução";
   loading.value = true;
-  completionMessage.value = ""; // Limpa a resposta anterior
+  completionMessage.value = "";
 
   try {
-    // Chama o serviço e obtém a resposta
-    completionMessage.value = await getGroqChatCompletion(userInput.value);
+    completionMessage.value = await getGroqChatCompletion(test);
   } catch (error) {
     console.error("Erro ao buscar resposta:", error);
     completionMessage.value = "Falha ao carregar a resposta.";

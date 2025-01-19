@@ -20,7 +20,7 @@ export async function getGroqChatCompletion(userMessage: string): Promise<string
           content: userMessage,
         },
       ],
-      model: "llama3-70b-8192",
+      model: "gemma2-9b-it",
     });
 
     // Retorna apenas o conteúdo da resposta
