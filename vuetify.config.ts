@@ -6,11 +6,11 @@ export default defineVuetifyConfiguration({
     defaultTheme: "customTheme",
     themes: {
       customTheme: {
-        dark: true,
+        dark: false,
         colors: {
           background: "#201C1D",
-          primary: "#7D67C1",
-          secondary: "#C6EF90",
+          primary: "#C6EF90",
+          secondary: "#ffffff",
           error: "#B00020",
           info: "#2196F3",
           success: "#4CAF50",

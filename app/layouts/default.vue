@@ -2,7 +2,7 @@
   <v-app>
     <AppHeader />
 
-    <v-main>
+    <v-main class="d-flex justify-center align-center">
       <slot />
     </v-main>
 
