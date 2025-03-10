@@ -7,9 +7,9 @@ const groq = new Groq({
 });
 
 // Função que faz a chamada para a API do GROQ
-export async function getGroqChatCompletion(userMessage: string): Promise<string> {
-  if (!userMessage) {
-    throw new Error("A mensagem do usuário não pode estar vazia.");
+export async function getGroqChatCompletion(userTranslate: string): Promise<string> {
+  if (!userTranslate) {
+    throw new Error("O texto do usuário não pode estar vazio.");
   }
 
   try {
@@ -17,7 +17,11 @@ export async function getGroqChatCompletion(userMessage: string): Promise<string
       messages: [
         {
           role: "user",
-          content: userMessage,
+          content: userTranslate,
+        },
+        {
+          role: "system",
+          content: "you are a translator app.",
         },
       ],
       model: "gemma2-9b-it",

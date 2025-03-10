@@ -21,7 +21,7 @@
         <v-select
           v-model="language_from"
           label="De:"
-          :items="languages"
+          :items="languages_list"
           item-title="language"
           item-value="language"
         />
@@ -35,14 +35,20 @@
           class="ma-2 d-none d-md-flex"
           variant="text"
           icon="mdi-swap-horizontal"
+          @click="changeLanguage"
         />
-        <v-btn class="ma-2 d-md-none" variant="text" icon="mdi-swap-vertical" />
+        <v-btn
+          class="ma-2 d-md-none"
+          variant="text"
+          icon="mdi-swap-vertical"
+          @click="changeLanguage"
+        />
       </v-col>
       <v-col cols="12" md="5">
         <v-select
           v-model="language_to"
           label="Para:"
-          :items="languages"
+          :items="languages_list"
           item-title="language"
           item-value="language"
         />
@@ -50,26 +56,35 @@
     </v-row>
     <v-row class="mt-0">
       <v-col cols="12">
-        <v-btn class="btn-translate mt-2" block variant="tonal" to="/translate"
-          >Começar</v-btn
+        <NuxtLink
+          :to="{
+            path: '/translate/',
+            query: { from: language_from, to: language_to },
+          }"
+          style="text-decoration: none; color: inherit"
+        >
+          <v-btn class="btn-translate mt-2" block variant="tonal"
+            >Começar</v-btn
+          ></NuxtLink
         >
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
+<script setup>
+import { ref, reactive } from "vue";
 import languages from "../assets/languages.json";
 
-export default {
-  data() {
-    return {
-      languages: languages,
-      language_to: "Inglês",
-      language_from: "Português",
-    };
-  },
-};
+const languages_list = reactive(languages);
+const language_from = ref("Português");
+const language_to = ref("Inglês");
+
+function changeLanguage() {
+  const l_from = language_from.value;
+  language_from.value = language_to.value;
+  language_to.value = l_from;
+}
 </script>
 
 <style scoped>

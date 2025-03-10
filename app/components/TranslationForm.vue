@@ -53,6 +53,7 @@
       <v-col>
         <v-btn block variant="tonal" to="/">Voltar</v-btn>
       </v-col>
+      {{ completionMessage }}
     </v-row>
   </v-form>
 </template>
@@ -62,27 +63,27 @@ import { ref, reactive } from "vue";
 import { getGroqChatCompletion } from "@/services/groqService";
 import languages from "../assets/languages.json";
 
+const route = useRoute();
 const userInput = ref("");
 const completionMessage = ref("");
 const loading = ref(false);
 const languages_list = reactive(languages);
-const language_from = ref("Português");
-const language_to = ref("Inglês");
+const language_from = ref(route.query.from);
+const language_to = ref(route.query.to);
 
 async function fetchChatCompletion() {
   if (!userInput.value) {
-    completionMessage.value = "Por favor, digite um texto.";
+    alert("Por favor, digite um texto.");
     return;
   }
-  const test =
-    "traduza para o inglês a frase a seguir: " +
-    userInput.value +
-    "retorne somente a tradução";
+
+  const command = `Traduza a seguinte frase ${userInput.value} do ${language_from.value} para o ${language_to.value}.`;
+
   loading.value = true;
   completionMessage.value = "";
 
   try {
-    completionMessage.value = await getGroqChatCompletion(test);
+    completionMessage.value = await getGroqChatCompletion(command);
   } catch (error) {
     console.error("Erro ao buscar resposta:", error);
     completionMessage.value = "Falha ao carregar a resposta.";
