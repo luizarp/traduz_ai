@@ -1,3 +1,58 @@
 {
-  "translations": []
+  "translations": [
+    {
+      "id": "679d",
+      "text_translated": "This is a notebook. \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "9458",
+      "text_translated": "I like chocolate. \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "ec29",
+      "text_translated": "This is a page test from Portuguese to English. \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "51b7",
+      "text_translated": "\"Translate the following English test from Portuguese to English\" in English. \n\nLet me know if you have a specific phrase you'd like me to translate! 😊 \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "2427",
+      "text_translated": "Notebook \n\n\nLet me know if you have any other phrases you'd like me to translate! 😊  \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "8950",
+      "text_translated": "This is impossible! I need to know *what* \"blablabla\" means.  \n\nCan you tell me what the words \"blablabla\" are supposed to represent?  \n\nFor example, are they:\n\n* **Someone talking nonsense?** -->  I could translate that as \"gibberish,\" \"nonsense,\" or \"blah blah blah.\" \n* **A placeholder for a specific word?** --> I need to know the word to translate it!\n\n\nLet me know, and I'll be happy to help! \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "3eb2",
+      "text_translated": "The English translation for \"paralelepípedo\" is **parallelepiped**.  \n\n\nLet me know if you have any other words or phrases you'd like me to translate!\n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "e307",
+      "text_translated": "Avocado",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    },
+    {
+      "id": "7fa4",
+      "text_translated": "parallelepiped \n",
+      "language_from": "Português",
+      "language_to": "Inglês"
+    }
+  ]
 }

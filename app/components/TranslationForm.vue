@@ -25,8 +25,14 @@
           class="ma-2 d-none d-md-flex"
           variant="text"
           icon="mdi-swap-horizontal"
+          @click="changeLanguage"
         />
-        <v-btn class="ma-2 d-md-none" variant="text" icon="mdi-swap-vertical" />
+        <v-btn
+          class="ma-2 d-md-none"
+          variant="text"
+          icon="mdi-swap-vertical"
+          @click="changeLanguage"
+        />
       </v-col>
       <v-col cols="12" md="5">
         <v-select
@@ -58,12 +64,13 @@
   </v-form>
 </template>
   
-  <script setup>
+<script setup>
 import { ref, reactive } from "vue";
 import { getGroqChatCompletion } from "@/services/groqService";
 import languages from "../assets/languages.json";
 
 const route = useRoute();
+const router = useRouter();
 const userInput = ref("");
 const completionMessage = ref("");
 const loading = ref(false);
@@ -71,13 +78,19 @@ const languages_list = reactive(languages);
 const language_from = ref(route.query.from);
 const language_to = ref(route.query.to);
 
+function changeLanguage() {
+  const l_from = language_from.value;
+  language_from.value = language_to.value;
+  language_to.value = l_from;
+}
+
 async function fetchChatCompletion() {
   if (!userInput.value) {
     alert("Por favor, digite um texto.");
     return;
   }
 
-  const command = `Traduza a seguinte frase ${userInput.value} do ${language_from.value} para o ${language_to.value}.`;
+  const command = `Traduza a seguinte frase ${userInput.value} do ${language_from.value} para o ${language_to.value}. responda apenas a tradução, sem textos adicionais.`;
 
   loading.value = true;
   completionMessage.value = "";
@@ -88,21 +101,28 @@ async function fetchChatCompletion() {
     console.error("Erro ao buscar resposta:", error);
     completionMessage.value = "Falha ao carregar a resposta.";
   } finally {
+    saveTranslate(completionMessage);
+    router.push({ path: "/result" });
     loading.value = false;
   }
 }
-</script>
-  
 
-<style scoped>
-.btn-translate {
-  background: rgb(198, 239, 144);
-  background: linear-gradient(
-    39deg,
-    rgba(198, 239, 144, 1) 0%,
-    rgba(235, 183, 110, 1) 50%,
-    rgba(203, 117, 91, 1) 100%
-  );
-  color: #201c1d;
+async function saveTranslate(translation) {
+  const translate = {
+    text_translated: translation.value,
+    language_from: language_from.value,
+    language_to: language_to.value,
+  };
+
+  const dataJson = JSON.stringify(translate);
+
+  const req = await fetch("http://localhost:8080/translations", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: dataJson,
+  });
+
+  const res = await req.json();
+  return res;
 }
-</style>
+</script>
